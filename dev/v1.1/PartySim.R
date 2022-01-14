@@ -31,14 +31,14 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
   # For convenient debugging...
 
   # For general use ...
-  # source('C:/Users/Administrator/Desktop/Personal/Tabletop RPGs/Tabletop_RPG_Tools/DnDRuf/released/v1.1/SupportFunctions/rollr.R')
-  # source('C:/Users/Administrator/Desktop/Personal/Tabletop RPGs/Tabletop_RPG_Tools/DnDRuf/released/v1.1/CivSim.R')
-  # source('C:/Users/Administrator/Desktop/Personal/Tabletop RPGs/Tabletop_RPG_Tools/DnDRuf/released/v1.1/SupportFunctions/chunkyloop.R')
-  # source('C:/Users/Administrator/Desktop/Personal/Tabletop RPGs/Tabletop_RPG_Tools/DnDRuf/released/v1.1/SupportFunctions/again.R')
-  source('SupportFunctions/rollr.R')
-  source('CivSim.R')
-  source('SupportFunctions/chunkyloop.R')
-  source('SupportFunctions/again.R')
+  # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
+  # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
+  # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
+  # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
+  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
+  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
+  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
+  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
 
   # Misspecifications List----
   
