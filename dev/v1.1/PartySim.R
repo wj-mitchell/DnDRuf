@@ -31,14 +31,23 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
   # For convenient debugging...
 
   # For general use ...
+  # source('C:/Users/tui81100/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
+  # source('C:/Users/tui81100/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
+  # source('C:/Users/tui81100/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
+  # source('C:/Users/tui81100/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
-  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
-  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
-  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
-  source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
+  source('SupportFunctions/rollr.R')
+  source('CivSim.R')
+  source('SupportFunctions/chunkyloop.R')
+  source('SupportFunctions/again.R')
+  
 
   # Misspecifications List----
   
@@ -457,7 +466,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
   if (df$CHR >= 10){
     df$CHR_mod <- floor((df$CHR - 10)/2)
   }
-  
+
   # Returning the final summary dataframe. 
   return(df)
 }

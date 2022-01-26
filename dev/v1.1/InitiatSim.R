@@ -3,8 +3,9 @@
 InitiatSim <- function(df, # A dataframe containing the list of participants
                        DEX_mod = df$DEX_mod) # A list of the dexterity scores respective to each participant; usually takes the form of a dataframe column
 { # Dependent Functions
-  source('C:/Users/Administrator/Desktop/Personal/Tabletop RPGs/Tabletop_RPG_Tools/DnDRuf/released/v1.1/SupportFunctions/rollr.R')
-  # source('SupportFunctions/rollr.R')
+  # source('C:/Users/Administrator/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
+  # source('C:/Users/tui81100/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
+  source('SupportFunctions/rollr.R')
   
   # Rolling dice for initiative
   for (i in 1:length(rownames(df))){
