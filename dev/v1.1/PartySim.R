@@ -23,7 +23,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
                      nHealGtr = NA, # Vector specifying the number of greater healing potions the characters in each group should have, respectively, in their inventory.
                      nHealSuper = NA, # Vector specifying the number of superior healing potions the characters in each group should have, respectively, in their inventory.
                      nHealSuprm = NA, # Vector specifying the number of supreme healing potions the characters in each group should have, respectively, in their inventorr.
-                     Seed = NA, #Seed value, which if entered, allows the user to reliably generate the same simulated characters repeatedly.
+                     Seed = sample(0:99999, size = 1), #Seed value, which if entered, allows the user to reliably generate the same simulated characters repeatedly.
                      Gender = c(.800,.196,.004)) #Vector denoting the proportion of males, females, and nonbinary fighters, repectively
 
 { options(warn=-1)
@@ -39,37 +39,58 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
   # source('C:/Users/Wjpmi/Dropbox/My PC (UncleSplashysSaddnessEmporium)/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
-  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R')
-  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R')
-  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R')
-  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R')
-  source('SupportFunctions/rollr.R')
-  source('CivSim.R')
-  source('SupportFunctions/chunkyloop.R')
-  source('SupportFunctions/again.R')
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/rollr.R', local = TRUE)
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/CivSim.R', local = TRUE)
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/chunkyloop.R', local = TRUE)
+  # source('C:/Users/Administrator/Desktop/Scripts/DnDRuf/dev/v1.1/SupportFunctions/again.R', local = TRUE)
+  source('SupportFunctions/rollr.R', local = TRUE)
+  source('CivSim.R', local = TRUE)
+  source('SupportFunctions/chunkyloop.R', local = TRUE)
+  source('SupportFunctions/again.R', local = TRUE)
   
 
   # Misspecifications List----
   
-  # Checking for consistency in the length of vectors
-  vectors <- c('GroupName', 'nPeople', 'ATK', 
-               'DMG', 'HPmax', 'HPmax_Low', 'HPmax_Up', 'AC', 'AC_Low', 'AC_Up', 
-               'STR', 'DEX', 'CON', 'INT', 'WIS', 'CHR', 'nHealStd', 'nHealGtr', 
-               'nHealSuper', 'nHealSuprm')
-  for (i in vectors){
-    if (!is.na(get(i))){
-      if (length(get(i)) != nGroups)
-        stop(paste0(i, " [", get(i), "] must be either be of value 'NA' or a vector whose length is equal to 
-                    the value of nGroups [", nGroups,  "]"),
-             call. = F)
-      if (i != "GroupName" & i != "DMG"){
-        if (get(i) < 0){
-          stop(paste0("The values contained in vector ", i, " must be 0 or greater."),
+  ## Values entered are non-numeric ----
+  if ((is.numeric(nGroups) & nGroups < 1) | !is.numeric(nGroups)){
+    stop(paste0("Your entry for nGroups does not seem to be a positive numeric value. Please correct this issue and rerun PartySim again."),
+         call. = F)
+  }
+  
+  ## Uniform is not a Boolean ----
+  if (Uniform != FALSE & Uniform != TRUE){
+    stop(paste0("The variable Uniform must take a value of either TRUE or FALSE."),
+         call. = F)
+  }
+  
+
+  vars <- list(GroupName, nPeople, ATK, DMG, HPmax, HPmax_Low, HPmax_Up, AC, 
+               AC_Low, AC_Up, STR, DEX, CON,  INT, WIS, CHR, nHealStd, nHealGtr, 
+               nHealSuper, nHealSuprm)
+  names <- list("GroupName", "nPeople", "ATK", "DMG", "HPmax", "HPmax_Low", "HPmax_Up", "AC", 
+               "AC_Low", "AC_Up", "STR", "DEX", "CON",  "INT", "WIS", 'CHR', "nHealStd", "nHealGtr", 
+               "nHealSuper", 'nHealSuprm')
+  
+  for (i in length(vars)){
+    if (!is.na(vars[i])){
+      ## Length of a variable is incongruent ----
+      if (Uniform == FALSE){
+        if (length(vars[i]) != nGroups){
+          stop(paste0("The length of variable ", names[i], " is incongruent with the number of groups you have requested [", nGroups, "]. This generally happens when you have entered more or fewer values than needed. Please correct this and rerun"),
+               call. = F)
+        }
+      }
+      ## variable is nonnumeric ----
+      if (i != 1 & i != 5){
+        if (any(!is.numeric(vars[i])) & any(vars[i] < 0)){
+          stop(paste0(names[i], " does not appear to be a positive numeric integer."),
                call. = F)
         }
       }
     }
   }
+  
+  rm(vars, names)
   
   # I create a list of variables that I want to compare ...
   ranges <- list(lows = c('HPmax_Low', 'AC_Low'),
@@ -82,16 +103,28 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
         if (get(ranges$lows[i])[j] >= get(ranges$ups[i])[j]){
           stop(paste0(ranges$lows[i], " must be a value greater than or equal to 0 and less than its corresponding value in ", ranges$ups[i]),
                call. = F)
-          }
         }
       }
     }
-
-  # No Errors Detected ----
+  }
   
-  # Setting a seed to reliable generate the same values in the future...
+  ## Seed Input is Either Non-Numeric or Negative
   if (!is.na(Seed)){
+    if (!is.numeric(Seed) | Seed < 0){
+      stop(paste0("Seed must take a numeric value of 0 or greater. You have entered: ", 
+                  Seed),
+           call. = F)
+    }
+  }
+  
+  # Function Start -----
+  
+  # Seeding Random Generators -----
+  if (!is.na(Seed)){
+    # Setting the seed the allows us to regenerate the same simulations again and again
     set.seed(Seed)
+    # Printing tha value so that the user has it, should they want it in the future.
+    print(paste0("PartySim Seed: ", Seed))
   }
   
   # Creating a dataframe to house the data on all of the individual relevant to the battle
@@ -424,7 +457,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
     df$STR_mod <- ceiling((df$STR - 10)/2)
   }
   if (df$STR >= 10){
-    df$STR_mod <- floor((df$STR - 10)/2)
+    df$STR_mod <- ceiling((df$STR - 10)/2)
   }
   
     # Calculating a Dexterity Modifier
@@ -432,7 +465,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
     df$DEX_mod <- ceiling((df$DEX - 10)/2)
   }
   if (df$DEX >= 10){
-    df$DEX_mod <- floor((df$DEX - 10)/2)
+    df$DEX_mod <- ceiling((df$DEX - 10)/2)
   }
 
   # Calculating a Constitution Modifier
@@ -440,7 +473,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
     df$CON_mod <- ceiling((df$CON - 10)/2)
   }
   if (df$CON >= 10){
-    df$CON_mod <- floor((df$CON - 10)/2)
+    df$CON_mod <- ceiling((df$CON - 10)/2)
   }
 
   # Calculating a Intelligence Modifier
@@ -448,7 +481,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
     df$INT_mod <- ceiling((df$INT - 10)/2)
   }
   if (df$INT >= 10){
-    df$INT_mod <- floor((df$INT - 10)/2)
+    df$INT_mod <- ceiling((df$INT - 10)/2)
   }
 
   # Calculating a Wisdom Modifier
@@ -456,7 +489,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
     df$WIS_mod <- ceiling((df$WIS - 10)/2)
   }
   if (df$WIS >= 10){
-    df$WIS_mod <- floor((df$WIS - 10)/2)
+    df$WIS_mod <- ceiling((df$WIS - 10)/2)
   }
 
   # Calculating a Charisma Modifier
@@ -464,7 +497,7 @@ PartySim <- function(nGroups = 1, # Value determining the number of groups that 
     df$CHR_mod <- ceiling((df$CHR - 10)/2)
   }
   if (df$CHR >= 10){
-    df$CHR_mod <- floor((df$CHR - 10)/2)
+    df$CHR_mod <- ceiling((df$CHR - 10)/2)
   }
 
   # Returning the final summary dataframe. 

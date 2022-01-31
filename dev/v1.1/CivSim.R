@@ -1,11 +1,58 @@
-## CivSim.R | v1.1 - 2021.12.30 
+## CivSim.R | v1.1 - 2022.01.30 
 
 # Values present represent defaults which can be modified as needed.
 CivSim <- function(nPeople = 1, #Number of individuals to simulate
-                      pFemale = 0.50, #Probability of generating female personalities
-                      pMale = 0.49, #Probability of generating male personalities
-                      pNonbinary = 0.01 #Probability of generating nonbinary personalities
-                      ){
+                   pFemale = 0.50, #Probability of generating female personalities
+                   pMale = 0.49, #Probability of generating male personalities
+                   pNonbinary = 0.01, #Probability of generating nonbinary personalities
+                   Seed = sample(0:99999, size = 1)) #Seed value, which if entered, allows the user to reliably generate the same simulated initative repeatedly.
+  {
+  # Errors ----
+  
+  ## Values entered are non-numeric ----
+  if ((is.numeric(nPeople) & nPeople < 1) | !is.numeric(nPeople)){
+      stop(paste0("Your entry for nPeople does not seem to be a positive numeric value. Please correct this issue and rerun CivSim again."),
+             call. = F)
+  }
+
+  ## Values entered are non-numeric ----  
+  if ((is.numeric(pFemale) & pFemale < 0) | !is.numeric(pFemale)){
+      stop(paste0("Your entry for pFemale does not seem to be a positive numeric value. Please correct this issue and rerun CivSim again."),
+           call. = F)
+  }
+  
+  ## Values entered are non-numeric ----
+  if ((is.numeric(pMale) & pMale < 0) | !is.numeric(pMale)){
+      stop(paste0("Your entry for pMale does not seem to be a positive numeric value. Please correct this issue and rerun CivSim again."),
+           call. = F)
+  }
+  
+  ## Values entered are non-numeric ----
+  if ((is.numeric(pNonbinary) & pNonbinary < 0) | !is.numeric(pNonbinary)){
+      stop(paste0("Your entry for pNonbinary does not seem to be a positive numeric value. Please correct this issue and rerun CivSim again."),
+           call. = F)
+  }
+
+
+  ## Seed Input is Either Non-Numeric or Negative
+  if (!is.na(Seed)){
+    if (!is.numeric(Seed) | Seed < 0){
+      stop(paste0("Seed must take a numeric value of 0 or greater. You have entered: ", 
+                  Seed),
+           call. = F)
+    }
+  }
+  
+  # Function Start -----
+  
+  # Seeding Random Generators -----
+  if (!is.na(Seed)){
+    # Setting the seed the allows us to regenerate the same simulations again and again
+    set.seed(Seed)
+    # Printing tha value so that the user has it, should they want it in the future.
+    print(paste0("CivSim Seed: ", Seed))
+  }  
+  
 ## Name Groupings ---- 
 # Names pulled from u/OrkishBlade's post here: <https://www.reddit.com/r/DnDBehindTheScreen/comments/50pcg1/a_post_about_names_names_for_speakers_of_the/>
 FirstArchaicFemale <- c("Abigayl", "Aebria", "Aeobreia", "Breia", "Aedria", "Aodreia", "Dreia", "Aeliya", "Aliya", "Aella", "Aemilya", "Aemma", "Aemy", "Amy", "Ami", "Aeria", "Arya", "Aeva", "Aevelyn", "Evylann", "Alaexa", "Alyxa", "Alina", "Aelina", "Aelinea", "Allisann", "Allysann", "Alyce", "Alys", "Alysea", "Alyssia", "Aelyssa", "Amelya", "Maelya", "Andreya", "Aendrea", "Arianna", "Aryanna", "Arielle", "Aryell", "Ariella", "Ashlena", "Aurora", "Avaery", "Avyrie", "Bella", "Baella", "Brooklinea", "Bryanna", "Brynna", "Brinna", "Caemila", "Chloe", "Chloeia", "Claira", "Clayre", "Clayra", "Delyla", "Dalyla", "Elisybeth", "Aelisabeth", "Ellia", "Ellya", "Elyana", "Eliana", "Eva", "Falyne", "Genaesis", "Genaesys", "Gianna", "Jianna", "Janna", "Graece", "Grassa", "Haenna", "Hanna", "Halya", "Harperia", "Peria", "Hazyl", "Hazel", "Jasmyne", "Jasmine", "Jocelyne", "Joceline", "Celine", "Kaelia", "Kaelya", "Kathryne", "Kathrine", "Kayla", "Kaila", "Kymber", "Kimbera", "Layla", "Laylanna", "Leia", "Leya", "Leah", "Lilia", "Lylia", "Luna", "Maedisa", "Maelania", "Melania", "Maya", "Mya", "Myla", "Milae", "Naomi", "Naome", "Natalya", "Talya", "Nathylie", "Nataliae", "Thalia", "Nicola", "Nikola", "Nycola", "Olivya", "Alivya", "Penelope", "Paenelope", "Pynelope", "Rianna", "Ryanna", "Ruby", "Ryla", "Samaentha", "Samytha", "Sara", "Sarah", "Savannia", "Scarletta", "Sharlotta", "Caerlotta", "Sophya", "Stella", "Stylla", "Valentyna", "Valerya", "Valeria", "Valia", "Valea", "Victorya", "Vilettia", "Ximena", "Imaena", "Ysabel", "Zoe", "Zoeia", "Zoea", "Zoesia")
