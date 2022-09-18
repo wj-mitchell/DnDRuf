@@ -1,5 +1,7 @@
 # **DnDRuf** v*1.1*
 
+#### **DnDRuf: Play flake free**
+
 DnDRuf is a compilation of user-friendly R functions created to simulate the creation of characters, parties, and combat among those parties while playing Dungeons &amp; Dragons 5e, or any tabletop RPG that follows a 5e system (providing you aren't too picky about the names). While still very much in its infancy, it does boast some highlights that I have yet to see in other tabletop RPG simulation projects, including:
 
 ### * CombatSim
